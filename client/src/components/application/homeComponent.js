@@ -15,8 +15,8 @@ export default function Home() {
   }, [isAuthenticated, dispatch, user])
   
   return (
-        <main style={{ padding: "1rem", textAlign:"center" }}>
-            <h2>Welcome</h2>
+        <main className="App-info">
+            <h2 className="App-info">Welcome</h2>
         </main> 
     );
   }

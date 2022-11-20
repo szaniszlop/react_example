@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import DatePicker from 'react-date-picker';
 import { invoiceAdded } from "../../state/invoiceSlice"; 
+import { useApiClient } from "../../hooks/apiClientProvider";
 
 export default function NewInvoiceForm() {
     console.log("InvoNewInvoiceFormice");     
@@ -11,14 +12,25 @@ export default function NewInvoiceForm() {
     const [dueDate, setDueDate ] = useState(new Date());
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const apiClient = useApiClient()
 
     const onNameChanged = e => setName(e.target.value)
     const onAmountChanged = e => setAmount(e.target.value)
+
     const formSubmit = () => {
         if(isFormValid()) {
-            dispatch(invoiceAdded(name, amount, dueDate.toJSON().split(0, 10)));
+            const body = {
+                name, 
+                amount, 
+                due: dueDate.toJSON().split(":", 10)[0]
+            }
+            dispatch(invoiceAdded({apiClient, body}));
             navigate("/invoices")    
         }
+    }
+
+    const formCancel = () => {
+        navigate("/invoices")
     }
 
     function isFormValid(){
@@ -43,7 +55,6 @@ export default function NewInvoiceForm() {
       <main className="container App-item-details-box">
         <section>
         <h2>New Invoice</h2>
-        <form>
             <label htmlFor="postName">Name:</label>
             <input
                 type="text"
@@ -65,18 +76,25 @@ export default function NewInvoiceForm() {
                 className={isAmountValid() ? "is-success" : "has-error"}
             />
             <label htmlFor="postDueDate">Due Date:</label>
-            <div style={{display: "clear"}} className={isDueDateValid() ? "is-success" : "has-error"}>
-                <DatePicker onChange={setDueDate} value={dueDate} required={true}/>
+            <div style={{display: "initial"}}>
+                <DatePicker onChange={setDueDate} value={dueDate} required={true} />
             </div>
             <label htmlFor="submitForm">{ isFormValid() ? "Entry is valid" : "Enter a valid customer name, amount and due date"}</label>
-            <button 
-                type="button" 
-                id="submitForm"
-                onClick={formSubmit} 
-                className={isFormValid() ? "button" : "muted-button"}>
-                Save Invoice
-            </button>
-        </form>
+            <div className="flex-row">
+                <button 
+                    type="button" 
+                    id="submitForm"
+                    onClick={formSubmit} 
+                    className={isFormValid() ? "button" : "muted-button"}>
+                    Save Invoice
+                </button>
+                <button 
+                    type="button" 
+                    id="cancelForm"
+                    onClick={formCancel} >
+                    Cancel
+                </button>
+            </div>
         </section>
       </main>
     );

@@ -99,6 +99,18 @@
 
 .App-error{
   color: crimson;
+  background-color: lightyellow;
+  align-items: center;
+  justify-content: center;  
+  text-align: center;
+}
+
+.App-info{
+  color: rgb(50, 20, 220);
+  background-color: lightyellow;
+  align-items: center;
+  justify-content: center;  
+  text-align: center;
 }
 
 .App-codebox {

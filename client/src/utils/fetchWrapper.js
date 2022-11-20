@@ -15,6 +15,7 @@ export default function configureFetchWrapper (configuration) {
     }
 
     const post = (url, body) => {
+        console.log("fetchwrapper.post")
         return fetchWithAccessToken(requestOptionsPost, url, body) ; 
     }
 
@@ -76,6 +77,7 @@ export default function configureFetchWrapper (configuration) {
             },
             body: JSON.stringify(body)
         };        
+        console.log("requestOptionsPost", requestOptions)
         return requestOptions;
     };
 

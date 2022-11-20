@@ -22,7 +22,23 @@ function useApiClientProvider(){
         return fetchWraper.get(`${backendUrl}/api/invoices`)        
     }
 
+    const addInvoice = async (body) => {
+        console.log("useApiClientProvider.addInvoice")
+        return fetchWraper.post(`${backendUrl}/api/invoices`, body)        
+    }
+
+    const getInvoice = async (id) => {
+        return fetchWraper.post(`${backendUrl}/api/invoices/${id}`)        
+    }
+
+    const deleteInvoice = async (id) => {
+        return fetchWraper.delete(`${backendUrl}/api/invoices/${id}`)        
+    }
+
     return ({
-        getInvoices
+        getInvoices,
+        addInvoice,
+        getInvoice,
+        deleteInvoice
     })
 }

@@ -35,25 +35,28 @@ app.use(bodyParser.urlencoded({
 
 // Get all invoices - 
 app.get('/api/invoices', checkJwt, jwtAuthz(["read:all"], {customUserKey: "auth"}), function(req, res){
-  console.log("user: {0}", req.auth);
+  console.log("Get Invoices", req.auth);
   res.status(200).send(invoices.repository.getInvoices());
 })
 
 // Get single invoice
 app.get('/api/invoices/:id', checkJwt, jwtAuthz(['read:all'], {customUserKey: "auth"}), function(req, res){
-  console.log("user: {0}", req.auth.sub, req.params);
+  console.log("get Invoice", req.params);
   res.status(200).send(invoices.repository.getInvoice(req.params.id));
 })
 
 // Add new invoice
 app.post('/api/invoices', checkJwt, jwtAuthz(['write:all'], {customUserKey: "auth"}), function(req, res){
-    console.log("user: {0}", req.auth.sub);
-    res.status(201).send(invoices.repository.addInvoice(req.body));
+    let body = req.body
+    console.log("Add Invoice", body);
+    body = {...body, number: new Date().valueOf().toString()}
+    console.log("Add Invoice", body);
+    res.status(201).send(invoices.repository.addInvoice(body));
   })
 
 // Delete an invoice
 app.delete('/api/invoices/:id', checkJwt, jwtAuthz(['write:all'], {customUserKey: "auth"}), function(req, res){
-  console.log("user: {0}", req.auth.sub, req.params);
+  console.log("delete invoice", req.params);
   res.status(201).send(invoices.repository.deletInvoice(req.params.id));
 })
 

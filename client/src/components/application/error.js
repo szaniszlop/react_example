@@ -8,13 +8,13 @@ export default function ErrorMessage(props) {
   let content
   if (props.action) {
     content = 
-    <div>
+    <div className="App-error">
         <h2 className="App-error">{props.text}</h2>
         <button onClick={() => dispatch(props.action())}>Retry</button>
     </div>
   } else {
     content = 
-    <div>
+    <div className="App-error">
         <h2 className="App-error">{props.text}</h2>
     </div>
   }
