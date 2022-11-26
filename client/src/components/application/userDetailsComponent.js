@@ -33,15 +33,8 @@ export default function UserDetails() {
           );
       };
 
-      const getUserRoles = async () => {
-        console.log("getUserRoles: ");
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.details.sub}/roles`;
-        initUserStateFromAuth0( userDetailsByIdUrl, setUserRoles);    
-      };    
-
       if(isAuthenticated){
         getUserMetadata();
-        // getUserRoles();
       }
     }, [user?.details.sub, isAuthenticated, setUserMetadata, setUserRoles, getAccessTokenSilently ]);
 

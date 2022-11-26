@@ -40,7 +40,7 @@ export default function Router() {
 
 function PrivateRoute({ children, ...rest }) {
     console.log("inside PrivateRoute ");
-    const { user, isAuthenticated, loginWithPopup, loginWithRedirect } = useAuth0();  
+    const { user, isAuthenticated, loginWithPopup } = useAuth0();  
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -50,7 +50,7 @@ function PrivateRoute({ children, ...rest }) {
         dispatch(setNavigation({location}));
         loginWithPopup();
       }
-      }, [isAuthenticated, loginWithRedirect, location, dispatch])
+      }, [isAuthenticated, loginWithPopup, location, dispatch])
 
 
     console.log("auth user is {} from location {}", user, location);
