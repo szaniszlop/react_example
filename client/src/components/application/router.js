@@ -1,7 +1,7 @@
 //router.js
 //pretend we imported all of our components
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import React, { Fragment, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import {useAuth0} from '@auth0/auth0-react'
 import PublicComponent from './publicComponent.js'
 import PrivateComponent from './privateComponent.js'
@@ -12,6 +12,8 @@ import Invoice from './invoiceComponent.js'
 import App from '../../App.js'
 import Home from './homeComponent.js'
 import NewInvoiceForm from './newInvoiceForm.js'
+import { useDispatch } from 'react-redux'
+import { setNavigation } from '../../state/navigationSlice.js'
 
 export default function Router() {
   console.log("inside Router");
@@ -22,7 +24,7 @@ export default function Router() {
                 <Route exact path='/' element={<App />}>
                   <Route index element={<Home/>} />
                   <Route exact path='login' element={<LoginComponent />}/>
-                  <Route path='public' element={<PublicComponent />}/>
+                  <Route path='about' element={<PublicComponent />}/>
                   <Route exact path='private' element={<PrivateRoute><PrivateComponent /></PrivateRoute>} />    
                   <Route path='invoices' element={<PrivateRoute><Invoices /></PrivateRoute>}>
                     <Route index element={<PrivateRoute><PrivateComponent /></PrivateRoute>} />
@@ -38,12 +40,22 @@ export default function Router() {
 
 function PrivateRoute({ children, ...rest }) {
     console.log("inside PrivateRoute ");
-    // const auth = useAuth()
-    const { user, isAuthenticated } = useAuth0();  
+    const { user, isAuthenticated, loginWithPopup, loginWithRedirect } = useAuth0();  
     const location = useLocation();
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+      if(!isAuthenticated){
+        console.log("inside PrivateRoute dispatching location", location);
+        dispatch(setNavigation({location}));
+        loginWithPopup();
+      }
+      }, [isAuthenticated, loginWithRedirect, location, dispatch])
+
+
     console.log("auth user is {} from location {}", user, location);
     return (
-        isAuthenticated ? (children) : (<Navigate to='/login' state={{ from: location }}/>)
+        isAuthenticated ? (children) : (<Fragment/>)
     )
   }
 

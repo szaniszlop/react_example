@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectUserDetails } from '../../state/userSlice'
+import LoginComponent from './loginComponent';
 import Navigation from './navigationComponent';
 
 export default function Header() {
@@ -37,7 +38,8 @@ function UserInfo( ){
     const user = useSelector(selectUserDetails);
     if(user && user && user.name){
         return(
-            <div className="flex-row flex-large one-third App-header-user-info">
+            <div className=" flex-row App-header-user-info">
+                <LoginComponent/>
                 <div><img src={user.picture} alt={user.name} /></div>
                 <div>{user.name} {" "}</div>
                 <div>{user.email}</div>            
@@ -45,7 +47,9 @@ function UserInfo( ){
         );
         } else {
             return(
-                <div className="flex-large one-third App-header-user-info"/>
+                <div className=" flex row App-header-user-info">
+                    <LoginComponent/>
+                </div>
             );
         }
 }  

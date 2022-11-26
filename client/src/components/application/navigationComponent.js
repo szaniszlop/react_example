@@ -6,8 +6,7 @@ export default function Navigation() {
   console.log("Navigation");
     return (
         <nav className="flex-row App-nav">
-            <NavigationLink to="/login" isSecured={false}>Login</NavigationLink>
-            <NavigationLink to="/public" isSecured={false}>Public</NavigationLink>
+            <NavigationLink to="/about" isSecured={false}>About</NavigationLink>
             <NavigationLink to="/private" isSecured={true}>Private</NavigationLink>
             <NavigationLink to="/invoices" isSecured={true}>Invoices</NavigationLink>
         </nav>
