@@ -6,6 +6,7 @@ window._env_ = {
   AUTH0_DEFAULT_SCOPE: "read:users read:roles",
   AUTH0_CLIENT_ID: "FW0RejixVf54alwZA8ZOWn5py327gMxW",
   BACKEND_URL: "http://localhost:4000",
+  BACKEND_API_VERSION: "api/v1",
   BACKEND_AUDIENCE: "https://testapi.psz.com/",
   BACKEND_SCOPE: "read:all write:all",
 };

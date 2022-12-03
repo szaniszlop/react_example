@@ -54,9 +54,11 @@ let invoices = [
     return invoice;
   };
 
-  exports.repository = {
+  let repository = {
     getInvoices,
     getInvoice,
     addInvoice,
     deletInvoice
   }
+
+  export default repository 

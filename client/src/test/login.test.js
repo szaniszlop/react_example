@@ -1,7 +1,6 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import { useAuth0 } from "@auth0/auth0-react";
 // if you're using jest 27.4.0+ and ts-jest 28.0.0+
-import { mocked } from "jest-mock";
 import {expect, jest, test} from '@jest/globals';
 
 import LoginComponent from "../components/application/loginComponent";
